@@ -1,2 +1,4 @@
-cchardet
-pandas==1.3.1
+faust-cchardet
+Cmake
+cython
+pandas

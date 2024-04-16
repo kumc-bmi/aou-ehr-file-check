@@ -11,4 +11,5 @@ example_path = os.path.join(test_resource_path, 'examples_erroneous')
 cdm_metadata_path = os.path.join(resource_path, 'omop')
 
 # Configuration
-csv_dir = environ['csv_path']  # location of files to validate, evaluate
+csv_path = environ['csv_path']
+csv_dir = csv_path  # location of files to validate, evaluate
