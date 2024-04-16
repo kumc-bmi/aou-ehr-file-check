@@ -1,4 +1,4 @@
-faust-cchardet
-Cmake
-cython
-pandas
+faust-cchardet==2.1.19
+Cmake==3.29.2
+cython==3.0.10
+pandas==2.2.2

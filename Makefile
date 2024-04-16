@@ -6,6 +6,7 @@ all: .make.ehr_check
 
 .make.ehr_check:.make.get_pip
 	# run ehr check file validation on OMOP tables in CSV
+	. ./.env && \
 	python3 omop_file_validator.py
 	touch $@
 
