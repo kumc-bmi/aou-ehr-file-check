@@ -1,6 +1,8 @@
 all: .make.ehr_check
 
 .make.get_pip:.make.venv
+	rm -rf get-pip.py || true
+	wget https://bootstrap.pypa.io/get-pip.py
 	. ./.env &&\
 	. ./venv/bin/activate && python3 get-pip.py
 
