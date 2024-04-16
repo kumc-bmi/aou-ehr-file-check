@@ -90,4 +90,5 @@ ENV/
 # Rope project settings
 .ropeproject
 
-settings.py
+get-pip.py
+

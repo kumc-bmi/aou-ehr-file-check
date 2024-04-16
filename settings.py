@@ -1,5 +1,6 @@
 import inspect
 import os
+from os import environ
 
 base_path = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 resource_path = os.path.join(base_path, 'resources')
@@ -10,4 +11,5 @@ example_path = os.path.join(test_resource_path, 'examples_erroneous')
 cdm_metadata_path = os.path.join(resource_path, 'omop')
 
 # Configuration
-csv_dir = 'path/to/csv_files'  # location of files to validate, evaluate
+csv_path = environ['csv_path']
+csv_dir = csv_path  # location of files to validate, evaluate

@@ -936,5 +936,4 @@ if __name__ == '__main__':
         "Number of rows to restrict for validation per file. e.g. --restrict 1000 for only validating the first 1000 lines"
     )
     args = parser.parse_args()
-
     evaluate_submission(settings.csv_dir, restrict=args.restrict)
