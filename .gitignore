@@ -92,3 +92,5 @@ ENV/
 
 get-pip.py
 
+"*
+.make.*

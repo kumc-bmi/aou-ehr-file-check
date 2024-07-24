@@ -1,14 +1,10 @@
+export csv_path := "/u01/omop/export/"
+
 all: .make.ehr_check
 
-.make.get_pip:.make.venv
-	rm -rf get-pip.py || true
-	wget https://bootstrap.pypa.io/get-pip.py
-	. ./.env &&\
-	. ./venv/bin/activate && python3 get-pip.py
-
-.make.ehr_check:.make.get_pip
+.make.ehr_check:.make.venv
 	# run ehr check file validation on OMOP tables in CSV
-	. ./.env && \
+	. ./venv/bin/activate && \
 	python3 omop_file_validator.py
 	touch $@
 

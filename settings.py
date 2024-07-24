@@ -12,4 +12,5 @@ cdm_metadata_path = os.path.join(resource_path, 'omop')
 
 # Configuration
 csv_path = environ['csv_path']
+print(csv_path)
 csv_dir = csv_path  # location of files to validate, evaluate
