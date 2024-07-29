@@ -12,7 +12,8 @@ all: .make.ehr_check
 ## export tables to csv
 .make.export_tables: .make.person .make.visit_occurrence .make.condition_occurrence .make.drug_exposure
 .make.export_tables: .make.measurement .make.procedure_occurrence .make.observation .make.device_exposure
-.make.export_tables: .make.death make.fact_relationship .make.specimen
+.make.export_tables: .make.death .make.fact_relationship .make.specimen
+	touch $@
 
 .make.person:
 	$(psql)  -c "\COPY (select * from omop_id_allofus.person) TO '$(csv_path)person.csv' WITH (FORMAT CSV, HEADER);"
