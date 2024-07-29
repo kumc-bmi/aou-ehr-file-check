@@ -1,21 +1,61 @@
 export csv_path := /u01/omop/export/
-psql=psql -v ON_ERROR_STOP=1 -c "set role fh_phi_admin;"
+psql=psql -v "ON_ERROR_STOP=1"
 
 all: .make.ehr_check
 
-.make.ehr_check:.make.venv
+.make.ehr_check:.make.venv .make.export_tables
 	# run ehr check file validation on OMOP tables in CSV
 	. ./venv/bin/activate && \
 	python3 omop_file_validator.py
 	touch $@
 
 ## export tables to csv
-.make.export_tables: .make.export_person .make.visit_occurrence .make.condition_occurrence .make.drug_exposure
+.make.export_tables: .make.person .make.visit_occurrence .make.condition_occurrence .make.drug_exposure
 .make.export_tables: .make.measurement .make.procedure_occurrence .make.observation .make.device_exposure
 .make.export_tables: .make.death make.fact_relationship .make.specimen
 
-.make.export_person:
-	$(psql)  -c "COPY omop_id_allofus.person TO '$(csv_path)person.csv' WITH CSV HEADER;"
+.make.person:
+	$(psql)  -c "\COPY (select * from omop_id_allofus.person) TO '$(csv_path)person.csv' WITH (FORMAT CSV, HEADER);"
+	touch $@
+
+.make.visit_occurrence:
+	$(psql) -c "\COPY (select * from omop_id_allofus.visit_occurrence) TO '$(csv_path)visit_occurrence.csv' WITH (FORMAT CSV, HEADER);"
+	touch $@
+.make.condition_occurrence:
+	$(psql) -c "\COPY (select * from omop_id_allofus.condition_occurrence) TO '$(csv_path)condition_occurrence.csv' WITH (FORMAT CSV, HEADER);"
+	touch $@
+
+.make.drug_exposure:
+	$(psql) -c "\COPY (select * from omop_id_allofus.drug_exposure) TO '$(csv_path)drug_exposure.csv' WITH (FORMAT CSV, HEADER);"
+	touch $@
+
+.make.measurement:
+	$(psql) -c "\COPY (select * from omop_id_allofus.measurement) TO '$(csv_path)measurement.csv' WITH (FORMAT CSV, HEADER);"
+	touch $@
+
+.make.procedure_occurrence:
+	$(psql) -c "\COPY (select * from omop_id_allofus.procedure_occurrence) TO '$(csv_path)procedure_occurrence.csv' WITH (FORMAT CSV, HEADER);"
+	touch $@
+
+.make.observation:
+	$(psql) -c "\COPY (select * from omop_id_allofus.observation) TO '$(csv_path)observation.csv' WITH (FORMAT CSV, HEADER);"
+	touch $@
+
+.make.device_exposure:
+	$(psql) -c "\COPY (select * from omop_id_allofus.device_exposure) TO '$(csv_path)device_exposure.csv' WITH (FORMAT CSV, HEADER);"
+	touch $@
+
+.make.death:
+	$(psql) -c "\COPY (select * from omop_id_allofus.death) TO '$(csv_path)death.csv' WITH (FORMAT CSV, HEADER);"
+	touch $@
+
+.make.fact_relationship:
+	$(psql) -c "\COPY (select * from omop_id_allofus.fact_relationship) TO '$(csv_path)fact_relationship.csv' WITH (FORMAT CSV, HEADER);"
+	touch $@
+
+.make.specimen:
+	$(psql) -c "\COPY (select * from omop_id_allofus.specimen) TO '$(csv_path)specimen.csv' WITH (FORMAT CSV, HEADER);"
+	touch $@
 
 .make.venv:
 	# create python3 virtual environment
