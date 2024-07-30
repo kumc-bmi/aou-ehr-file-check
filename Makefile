@@ -1,7 +1,13 @@
 export csv_path := /u01/omop/export/
 psql=psql -v "ON_ERROR_STOP=1"
 
-all: .make.ehr_check
+all: .make.counts
+
+.make.counts: .make.ehr_check
+	cd $(csv_path) &&\
+	wc -l * | sort -n &&\
+	wc -l errors/* | sort -n
+	touch $@
 
 .make.ehr_check:.make.venv .make.export_tables
 	# run ehr check file validation on OMOP tables in CSV
