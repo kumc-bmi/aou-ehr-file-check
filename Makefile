@@ -28,6 +28,7 @@ all: .make.counts
 .make.visit_occurrence:
 	$(psql) -c "\COPY (select * from omop_id_allofus.visit_occurrence) TO '$(csv_path)visit_occurrence.csv' WITH (FORMAT CSV, HEADER);"
 	touch $@
+
 .make.condition_occurrence:
 	$(psql) -c "\COPY (select * from omop_id_allofus.condition_occurrence) TO '$(csv_path)condition_occurrence.csv' WITH (FORMAT CSV, HEADER);"
 	touch $@
@@ -62,6 +63,26 @@ all: .make.counts
 
 .make.specimen:
 	$(psql) -c "\COPY (select * from omop_id_allofus.specimen) TO '$(csv_path)specimen.csv' WITH (FORMAT CSV, HEADER);"
+	touch $@
+
+.make.pii_name:
+	$(psql) -c "\COPY (select * from omop_id_allofus.pii_name) TO '$(csv_path)pii_name.csv' WITH (FORMAT CSV, HEADER);"
+	touch $@
+
+.make.pii_email:
+	$(psql) -c "\COPY (select * from omop_id_allofus.pii_email) TO '$(csv_path)pii_email.csv' WITH (FORMAT CSV, HEADER);"
+	touch $@
+
+.make.pii_phone_number:
+	$(psql) -c "\COPY (select * from omop_id_allofus.pii_phone_number) TO '$(csv_path)pii_phone_number.csv' WITH (FORMAT CSV, HEADER);"
+	touch $@
+
+.make.pii_mrn:
+	$(psql) -c "\COPY (select * from omop_id_allofus.pii_mrn) TO '$(csv_path)pii_mrn.csv' WITH (FORMAT CSV, HEADER);"
+	touch $@
+
+.make.participant_match:
+	$(psql) -c "\COPY (select * from omop_id_allofus.participant_match) TO '$(csv_path)participant_match.csv' WITH (FORMAT CSV, HEADER);"
 	touch $@
 
 .make.venv:
