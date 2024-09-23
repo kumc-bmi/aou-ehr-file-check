@@ -19,6 +19,8 @@ all: .make.counts
 .make.export_tables: .make.person .make.visit_occurrence .make.condition_occurrence .make.drug_exposure
 .make.export_tables: .make.measurement .make.procedure_occurrence .make.observation .make.device_exposure
 .make.export_tables: .make.death .make.fact_relationship .make.specimen
+.make.: .make.pii_name .make.pii_email .make.pii_phone_number .make.pii_mrn .make.participant_match
+
 	touch $@
 
 .make.person:
