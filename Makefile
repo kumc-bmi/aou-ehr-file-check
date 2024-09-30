@@ -75,6 +75,10 @@ all: .make.counts
 	$(psql) -c "\COPY (select * from omop_id_allofus.pii_email) TO '$(csv_path)pii_email.csv' WITH (FORMAT CSV, HEADER);"
 	touch $@
 
+.make.pii_address:
+	$(psql) -c "\COPY (select * from omop_id_allofus.pii_address) TO '$(csv_path)pii_address.csv' WITH (FORMAT CSV, HEADER);"
+	touch $@
+
 .make.pii_phone_number:
 	$(psql) -c "\COPY (select * from omop_id_allofus.pii_phone_number) TO '$(csv_path)pii_phone_number.csv' WITH (FORMAT CSV, HEADER);"
 	touch $@
