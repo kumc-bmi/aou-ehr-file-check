@@ -19,7 +19,8 @@ all: .make.counts
 .make.export_tables: .make.person .make.visit_occurrence .make.condition_occurrence .make.drug_exposure
 .make.export_tables: .make.measurement .make.procedure_occurrence .make.observation .make.device_exposure
 .make.export_tables: .make.death .make.fact_relationship .make.specimen
-.make.export_tables: .make.pii_name .make.pii_email .make.pii_phone_number .make.pii_mrn .make.participant_match
+.make.export_tables: .make.pii_name .make.pii_email .make.pii_phone_number .make.pii_mrn .make.participant_match .make.pii_address
+.make.export_tables: .make.care_site .make.location .make.provider .make.note .make.visit_detail
 
 	touch $@
 
@@ -30,7 +31,7 @@ all: .make.counts
 .make.visit_occurrence:
 	$(psql) -c "\COPY (select * from omop_id_allofus.visit_occurrence) TO '$(csv_path)visit_occurrence.csv' WITH (FORMAT CSV, HEADER);"
 	touch $@
-
+	
 .make.condition_occurrence:
 	$(psql) -c "\COPY (select * from omop_id_allofus.condition_occurrence) TO '$(csv_path)condition_occurrence.csv' WITH (FORMAT CSV, HEADER);"
 	touch $@
@@ -89,6 +90,26 @@ all: .make.counts
 
 .make.participant_match:
 	$(psql) -c "\COPY (select * from omop_id_allofus.participant_match) TO '$(csv_path)participant_match.csv' WITH (FORMAT CSV, HEADER);"
+	touch $@
+
+.make.care_site:
+	$(psql) -c "\COPY (select * from omop_id_allofus.care_site) TO '$(csv_path)care_site.csv' WITH (FORMAT CSV, HEADER);"
+	touch $@
+
+.make.location:
+	$(psql) -c "\COPY (select * from omop_id_allofus.location) TO '$(csv_path)location.csv' WITH (FORMAT CSV, HEADER);"
+	touch $@
+
+.make.provider:
+	$(psql) -c "\COPY (select * from omop_id_allofus.provider) TO '$(csv_path)provider.csv' WITH (FORMAT CSV, HEADER);"
+	touch $@
+
+.make.note:
+	$(psql) -c "\COPY (select * from omop_id_allofus.note) TO '$(csv_path)note.csv' WITH (FORMAT CSV, HEADER);"
+	touch $@
+
+.make.visit_detail:
+	$(psql) -c "\COPY (select * from omop_id_allofus.visit_detail) TO '$(csv_path)visit_detail.csv' WITH (FORMAT CSV, HEADER);"
 	touch $@
 
 .make.venv:
