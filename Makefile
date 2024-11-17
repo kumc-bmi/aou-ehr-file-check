@@ -125,5 +125,7 @@ all: .make.counts
 	touch $@
 
 clean:
-	rm -rf venv
-	rm -rf .make.*
+	rm -rf venv || true
+	rm -rf .make.* || true
+	rm -rf $(csv_path)*.csv || true
+	rm -rf $(csv_path)errors || true
