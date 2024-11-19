@@ -101,7 +101,7 @@ all: .make.counts
 	touch $@
 
 .make.provider:
-	$(psql) -c "\COPY (select * from omop_id_allofus.provider) TO '$(csv_path)provider.csv' WITH (FORMAT CSV, HEADER);"
+	$(psql) -c "\COPY (select * from omop_id_allofus.provider) TO '$(csv_path)provider.csv' WITH (FORMAT CSV, HEADER, FORCE_QUOTE *) ;"
 	touch $@
 
 .make.note:
